@@ -21,7 +21,7 @@ jobs:
         host: ${{ secrets.LINUX_UBUNTU_SERVER_IP }}
         username: ${{ secrets.LINUX_UBUNTU_SERVER_USERNAME }}
         key: ${{ secrets.LINUX_UBUNTU_SERVER_SSH_KEY }}
-        port: 22
+        port: ${{ secrets.PORT }}
         script: |
           cd /var/www/server/server
           git pull
@@ -32,5 +32,5 @@ jobs:
           npm run build
           pm2 delete all
           pm2 start dist/main.js
-          curl -X POST -H "Content-Type: application/json" -H "Authorization: " -d '{"content":"Dự án node js đã deploy thành công link: https://peony.myx.info.vn/ "}' https://discord.com/channels/1175415523652141077/1175415523652141079
+          curl -X POST -H "Content-Type: application/json" -H "Authorization: ${{ secrets.DC_KEY }}" -d '{"content":"Dự án node js đã deploy thành công link: https://peony.myx.info.vn/ "}' https://discord.com/channels/1175415523652141077/1175415523652141079
           
