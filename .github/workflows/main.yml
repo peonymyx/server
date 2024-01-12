@@ -1,0 +1,36 @@
+name: Deploy
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:       
+    - name: Kết nối ssh linux -> và pull
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.LINUX_UBUNTU_SERVER_IP }}
+        username: ${{ secrets.LINUX_UBUNTU_SERVER_USERNAME }}
+        key: ${{ secrets.LINUX_UBUNTU_SERVER_SSH_KEY }}
+        port: 22
+        script: |
+          cd /var/www/server/server
+          git pull
+          git status
+          . $HOME/.nvm/nvm.sh
+          nvm use
+          npm i
+          npm run build
+          pm2 delete all
+          pm2 start dist/main.js
+          curl -X POST -H "Content-Type: application/json" -H "Authorization: " -d '{"content":"Dự án node js đã deploy thành công link: https://peony.myx.info.vn/ "}' https://discord.com/channels/1175415523652141077/1175415523652141079
+          
