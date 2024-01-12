@@ -44,7 +44,7 @@ export class UsersController {
     try {
       let {err, data} = await this.usersService.findByEmail(body.email);
       if(err) {
-        throw err || "User khong ton tai"
+        throw err || "User không tồn tại"
       }
 
       if(body.password != data.password) {
