@@ -26,12 +26,6 @@ export class UsersService {
     }
   }
 
-  findOne(id: number){
-    return `This action returns a #${id} user`;
-  }
-  findAll() {
-    return `This action returns all users`;
-  }
 
 
   async findByEmail(email: string) {
@@ -54,7 +48,4 @@ export class UsersService {
   }
 
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }
