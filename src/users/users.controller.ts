@@ -48,7 +48,7 @@ export class UsersController {
       }
 
       if(body.password != data.password) {
-        throw "Mat khau khong chinh xac"
+        throw "Mật khẩu không chính xác"
       }
 
       return res.status(200).json({
